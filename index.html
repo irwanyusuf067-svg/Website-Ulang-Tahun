@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>For You ❤️</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: linear-gradient(135deg, #ffd6e7, #fff0f5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .page {
+      width: 85%;
+      max-width: 380px;
+      background: white;
+      padding: 35px 25px;
+      border-radius: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .emoji {
+      font-size: 60px;
+    }
+
+    h1 {
+      color: #f24f82;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #555;
+      line-height: 1.6;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin: 15px 0;
+      border: 2px solid #ffd0df;
+      border-radius: 15px;
+      text-align: center;
+      font-size: 16px;
+      outline: none;
+    }
+
+    button {
+      border: none;
+      padding: 13px 25px;
+      border-radius: 25px;
+      background: #f24f82;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+    .page {
+  animation: masukHalaman 0.6s ease;
+}
+
+@keyframes masukHalaman {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+    .hati {
+  position: fixed;
+  top: -20px;
+  font-size: 20px;
+  animation: jatuh 6s linear infinite;
+  pointer-events: none;
+  z-index: 999;
+}
+
+@keyframes jatuh {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  25% {
+    transform: translate(30px, 25vh) rotate(90deg);
+  }
+
+  50% {
+    transform: translate(-30px, 50vh) rotate(180deg);
+  }
+
+  75% {
+    transform: translate(30px, 75vh) rotate(270deg);
+  }
+
+  100% {
+    transform: translate(-30px, 110vh) rotate(360deg);
+  }
+}
+
+    #salah {
+      color: #f24f82;
+      margin-top: 15px;
+    }
+    .foto {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 20px;
+  margin: 15px 0;
+  display: block;
+      transition: opacity 0.4s ease;
+    }
+    .kolase {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.kolase img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.kolase img:last-child {
+  grid-column: span 2;
+  height: auto;
+}
+  </style>
+</head>
+
+<body>
+
+  <!-- HALAMAN PASSWORD -->
+  <div class="page" id="passwordPage">
+
+    <div class="emoji">🔐</div>
+
+    <h1>Secret Page</h1>
+
+    <p>
+      Mohon Maaf sebelumnya Bapak/Ibu karena saya telah membuat Bapak/Ibu terkejut, saya ingin memberikan sesuatu untuk Putri Bapak dan Ibu... 🤍 Passwordnya di bio What'sApp aku yaa!
+    </p>
+
+    <p>
+      Masukkan password untuk membuka.
+    </p>
+
+    <input
+      type="password"
+      id="password"
+      placeholder="Masukkan password"
+    >
+
+    <br>
+
+    <button onclick="cekPassword()">
+      Buka 💌
+    </button>
+
+    <p id="salah"></p>
+
+  </div>
+
+
+  <!-- HALAMAN UCAPAN -->
+  <div class="page hidden" id="birthdayPage">
+
+    <div class="emoji">🎂</div>
+
+    <h1>Happy Birthday!</h1>
+
+    <p>
+      Selamat ulang tahun untuk seseorang yang spesial 🤍
+    </p>
+
+    <p>
+      Aku punya sesuatu yang ingin aku sampaikan...
+    </p>
+
+    <button onclick="bukaSurat()">
+      Lanjut 💌
+    </button>
+
+  </div>
+
+
+  <!-- HALAMAN SURAT -->
+  <div class="page hidden" id="suratPage">
+
+    <div class="emoji">💌</div>
+
+    <h1>Untuk Kamu 🤍</h1>
+
+    <p>
+      Selamat ulang tahun! 🎉
+    </p>
+
+    <p>
+      Semoga hari ini menjadi hari yang penuh
+      kebahagiaan dan senyuman.
+    </p>
+
+    <p>
+      Semoga semua hal baik datang kepada kamu.
+      Jangan lupa untuk selalu bahagia ya! 🤍
+    </p>
+
+    <button onclick="kembali()">
+      Kembali
+    </button>
+    <button onclick="bukaAlbum()">
+  Lihat Ucapan 🤍
+    </button>
+
+  </div>
+  <!-- ALBUM FOTO -->
+<div class="page hidden" id="fotoPage">
+
+<audio id="musik" loop>
+  <source src="musik/lagu1.mp3" type="audio/mpeg">
+</audio>
+
+  <div class="emoji">📸</div>
+
+  <h1>Kenangan Kita 🤍</h1>
+
+  <img id="albumFoto" src="foto/Foto 1.jpg" class="foto">
+
+  <p id="albumTulisan">
+    Selamat ulang tahun, Najwaku 🥳. Ini pertama kalinya kita punya foto bareng, hanya berdua 🤍
+  </p>
+
+  <button onclick="fotoBerikutnya()">
+    Berikutnya 🤍
+  </button>
+
+</div>
+  
+
+
+  <script>
+
+    function cekPassword() {
+
+      // GANTI PASSWORD DI SINI
+      let passwordBenar = "0071";
+
+      let password = document.getElementById("password").value;
+
+      if (password === passwordBenar) {
+
+        document.getElementById("passwordPage").classList.add("hidden");
+
+        document.getElementById("birthdayPage").classList.remove("hidden");
+        document.getElementById("musik").play();
+
+      } else {
+
+        document.getElementById("salah").innerText =
+          "Password salah 😝 Coba lagi!";
+
+      }
+    }
+
+
+    function bukaSurat() {
+
+      document.getElementById("birthdayPage").classList.add("hidden");
+
+      document.getElementById("suratPage").classList.remove("hidden");
+
+    }
+
+
+    function kembali() {
+
+      document.getElementById("suratPage").classList.add("hidden");
+
+      document.getElementById("birthdayPage").classList.remove("hidden");
+
+    }
+    function bukaAlbum() {
+  document.getElementById("suratPage").classList.add("hidden");
+  document.getElementById("fotoPage").classList.remove("hidden");
+}
+
+ let nomorFoto = 0;
+    function buatHati() {
+  const hati = document.createElement("div");
+  hati.className = "hati";
+  hati.innerText = "🤍";
+      hati.style.left = Math.random() * 100 + "vw";
+
+  hati.style.animationDuration = (5 + Math.random() * 5) + "s";
+
+  document.body.appendChild(hati);
+
+  setTimeout(() => {
+    hati.remove();
+  }, 8000);
+}
+
+setInterval(buatHati, 700);
+
+const foto = [
+  "foto/Foto 1.jpg",
+  "foto/Foto 2.jpg",
+  "foto/Foto 3.jpg",
+  "foto/Foto 4.jpg",
+  "foto/Foto 5.png"
+];
+    const tulisan = [
+  "Selamat ulang tahun, Najwaku 🥳. Ini pertama kalinya kita punya foto bareng, hanya berdua 🤍",
+
+  "Bagaimana dengan tahun lalu? Banyak banget momen yang kita lewati. Momen ini juga nggak akan aku lupain, karena kamu adalah orang pertama yang ngajak aku pergi naik kereta ☺️",
+
+  "Insya Allah, aku akan selalu mendukung setiap doa dan harapanmu 🤗. Ini waktu akhir tahun lalu. Aku bahagia banget waktu tahu aku akan libur, karena yang langsung terlintas di kepalaku adalah pergi dan menghabiskan waktu bersama kamu 😄",
+
+  "Ini kali kedua aku memberikan hadiah untukmu. Semoga aku masih diberi kesempatan untuk kembali memberikan hadiah di ulang tahunmu berikutnya 😉. Ini waktu kita ke Bogor. Meskipun masih ada beberapa tempat yang belum kita kunjungi, semoga suatu saat nanti kita bisa pergi ke sana lagi ☺️",
+
+  "Aku gak tahu apa yang kamu harapkan untuk tahun depan, dan aku juga nggak tahu seperti apa perjalanan kita nanti 😄. Tapi aku berharap kita sama-sama terus tumbuh menjadi versi terbaik dari diri kita masing-masing. Dan satu hal yang pasti, semakin lama aku melihatmu, kok kamu malah makin CANTIKKK 🤗. Selamat bertumbuh, Ashriku ☺️🤍"
+];
+    function fotoBerikutnya() {
+  if (nomorFoto === foto.length - 1) {
+    const albumFoto = document.getElementById("albumFoto");
+    const albumTulisan = document.getElementById("albumTulisan");
+    const tombol = document.querySelector("#fotoPage button");
+    const judul = document.querySelector("#fotoPage h1");
+    const emoji = document.querySelector("#fotoPage .emoji");
+
+    emoji.innerText = "🤍";
+    judul.innerText = "Semua Kenangan 🤍";
+
+    albumFoto.style.display = "none";
+    albumTulisan.innerText =
+      "Lima foto, banyak kenangan. Semoga masih ada banyak cerita yang bisa kita buat bersama 🤍";
+
+    tombol.style.display = "none";
+
+    const kolase = document.createElement("div");
+    kolase.className = "kolase";
+
+    foto.forEach((namaFoto) => {
+      const gambar = document.createElement("img");
+      gambar.src = namaFoto;
+      kolase.appendChild(gambar);
+    });
+
+    albumTulisan.before(kolase);
+
+    return;
+  }
+
+  nomorFoto++;
+
+  const gambar = document.getElementById("albumFoto");
+
+  gambar.style.opacity = "0";
+
+  setTimeout(() => {
+    gambar.src = foto[nomorFoto];
+    document.getElementById("albumTulisan").innerText =
+      tulisan[nomorFoto];
+    gambar.style.opacity = "1";
+  }, 400);
+  }
+  
+  </script>
+</body>
+</html>
