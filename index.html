@@ -252,6 +252,10 @@
     Selamat ulang tahun, Najwaku 🥳. Ini pertama kalinya kita punya foto bareng, hanya berdua 🤍
   </p>
 
+  <button id="tombolKembali" onclick="fotoSebelumnya()" style="display: none;">
+  Kembali 🤍
+  </button>
+
   <button onclick="fotoBerikutnya()">
     Berikutnya 🤍
   </button>
@@ -342,33 +346,42 @@ const foto = [
 
   "Aku gak tahu apa yang kamu harapkan untuk tahun depan, dan aku juga nggak tahu seperti apa perjalanan kita nanti 😄. Tapi aku berharap kita sama-sama terus tumbuh menjadi versi terbaik dari diri kita masing-masing. Dan satu hal yang pasti, semakin lama aku melihatmu, kok kamu malah makin CANTIKKK 🤗. Selamat bertumbuh, Ashriku ☺️🤍"
 ];
-    function fotoBerikutnya() {
+function fotoBerikutnya() {
+  const tombolKembali = document.getElementById("tombolKembali");
+  const tombolBerikutnya = document.querySelector(
+    '#fotoPage button[onclick="fotoBerikutnya()"]'
+  );
+
   if (nomorFoto === foto.length - 1) {
     const albumFoto = document.getElementById("albumFoto");
     const albumTulisan = document.getElementById("albumTulisan");
-    const tombol = document.querySelector("#fotoPage button");
     const judul = document.querySelector("#fotoPage h1");
     const emoji = document.querySelector("#fotoPage .emoji");
 
-    emoji.innerText = "🤍";
-    judul.innerText = "Semua Kenangan 🤍";
+    if (!document.getElementById("kolaseTerakhir")) {
+      emoji.innerText = "🤍";
+      judul.innerText = "Semua Kenangan 🤍";
 
-    albumFoto.style.display = "none";
-    albumTulisan.innerText =
-      "Lima foto, banyak kenangan. Semoga masih ada banyak cerita yang bisa kita buat bersama 🤍";
+      albumFoto.style.display = "none";
 
-    tombol.style.display = "none";
+      albumTulisan.innerText =
+        "Lima foto, banyak kenangan. Semoga masih ada banyak cerita yang bisa kita buat bersama 🤍";
 
-    const kolase = document.createElement("div");
-    kolase.className = "kolase";
+      const kolase = document.createElement("div");
+      kolase.id = "kolaseTerakhir";
+      kolase.className = "kolase";
 
-    foto.forEach((namaFoto) => {
-      const gambar = document.createElement("img");
-      gambar.src = namaFoto;
-      kolase.appendChild(gambar);
-    });
+      foto.forEach((namaFoto) => {
+        const gambar = document.createElement("img");
+        gambar.src = namaFoto;
+        kolase.appendChild(gambar);
+      });
 
-    albumTulisan.before(kolase);
+      albumTulisan.before(kolase);
+    }
+
+    tombolKembali.style.display = "inline-block";
+    tombolBerikutnya.style.display = "none";
 
     return;
   }
@@ -376,16 +389,82 @@ const foto = [
   nomorFoto++;
 
   const gambar = document.getElementById("albumFoto");
+  const tulisanFoto = document.getElementById("albumTulisan");
 
   gambar.style.opacity = "0";
 
   setTimeout(() => {
     gambar.src = foto[nomorFoto];
-    document.getElementById("albumTulisan").innerText =
-      tulisan[nomorFoto];
+    tulisanFoto.innerText = tulisan[nomorFoto];
     gambar.style.opacity = "1";
+
+    // Atur tombol sesuai posisi foto
+    tombolKembali.style.display =
+      nomorFoto === 0 ? "none" : "inline-block";
+
+    tombolBerikutnya.style.display = "inline-block";
   }, 400);
+}
+
+
+function fotoSebelumnya() {
+  const kolase = document.getElementById("kolaseTerakhir");
+
+  // Kalau sedang di kolase
+  if (kolase) {
+    kolase.remove();
+
+    const gambar = document.getElementById("albumFoto");
+    const tulisanFoto = document.getElementById("albumTulisan");
+    const tombolKembali = document.getElementById("tombolKembali");
+    const tombolBerikutnya = document.querySelector(
+      '#fotoPage button[onclick="fotoBerikutnya()"]'
+    );
+    const judul = document.querySelector("#fotoPage h1");
+    const emoji = document.querySelector("#fotoPage .emoji");
+
+    nomorFoto = foto.length - 1;
+
+    emoji.innerText = "📸";
+    judul.innerText = "Kenangan Kita 🤍";
+
+    gambar.src = foto[nomorFoto];
+    gambar.style.display = "";
+    tulisanFoto.innerText = tulisan[nomorFoto];
+
+    tombolKembali.style.display = "inline-block";
+    tombolBerikutnya.style.display = "inline-block";
+
+    return;
   }
+
+  if (nomorFoto === 0) {
+    return;
+  }
+
+  nomorFoto--;
+
+  const gambar = document.getElementById("albumFoto");
+  const tulisanFoto = document.getElementById("albumTulisan");
+  const tombolKembali = document.getElementById("tombolKembali");
+  const tombolBerikutnya = document.querySelector(
+    '#fotoPage button[onclick="fotoBerikutnya()"]'
+  );
+
+  gambar.style.opacity = "0";
+
+  setTimeout(() => {
+    gambar.src = foto[nomorFoto];
+    tulisanFoto.innerText = tulisan[nomorFoto];
+    gambar.style.opacity = "1";
+
+    // Foto 1 = Kembali hilang, Berikutnya tetap ada
+    tombolKembali.style.display =
+      nomorFoto === 0 ? "none" : "inline-block";
+
+    tombolBerikutnya.style.display = "inline-block";
+  }, 400);
+}
   
   </script>
 </body>
